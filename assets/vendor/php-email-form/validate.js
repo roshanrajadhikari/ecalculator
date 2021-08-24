@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  let forms = document.querySelectorAll('.php-email-form');
+  let forms = document.querySelectorAll('.email-form');
 
   forms.forEach( function(e) {
     e.addEventListener('submit', function(event) {
@@ -14,13 +14,8 @@
 
       let thisForm = this;
 
-      let action = thisForm.getAttribute('action');
       let recaptcha = thisForm.getAttribute('data-recaptcha-site-key');
       
-      if( ! action ) {
-        displayError(thisForm, 'The form action property is not set!')
-        return;
-      }
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
@@ -44,37 +39,36 @@
           displayError(thisForm, 'The reCaptcha javascript API url is not loaded!')
         }
       } else {
-        php_email_form_submit(thisForm, action, formData);
+        submitData(thisForm,formData);
       }
     });
   });
 
-  function php_email_form_submit(thisForm, action, formData) {
-    fetch(action, {
-      method: 'POST',
-      body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
-    })
-    .then(response => {
-      if( response.ok ) {
-        return response.text()
-      } else {
-        throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
-      }
-    })
-    .then(data => {
+function submitData(thisForm,formData){
+  var data = [];
+  for (var value of formData.values()) {
+    data.push(value);
+ } 
+ console.log(data); 
+ var date = new Date(Date.now());
+ db.collection("forms").add({
+    name: data[0],
+      email:data[1],
+      subject: data[2],
+      message: data[3],
+      timestamp: date,
+  }).then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
       thisForm.querySelector('.loading').classList.remove('d-block');
-      if (data.trim() == 'OK') {
-        thisForm.querySelector('.sent-message').classList.add('d-block');
-        thisForm.reset(); 
-      } else {
-        throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
-      }
-    })
-    .catch((error) => {
-      displayError(thisForm, error);
-    });
-  }
+      thisForm.querySelector('.error-message').classList.remove('d-block');
+      thisForm.querySelector('.sent-message').classList.add('d-block');
+      thisForm.reset(); 
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+      displayError(thisForm, error)
+  });
+}
 
   function displayError(thisForm, error) {
     thisForm.querySelector('.loading').classList.remove('d-block');

@@ -21,6 +21,8 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/fontawesome-free-5.15.3-web/css/all.css">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -40,7 +42,16 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#home">Home</a></li>
           <li><a class="nav-link scrollto" href="#services">Calculator</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#tic">TIC</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Feedback</a></li>
+          <li><a class="nav-link scrollto">Font
+            <div class="icon fontbtn" id="inc" data-csize='4'><i class="fas fa-plus"></i></div>
+            <div class="mt-2 col-md-1"></div>
+            <div class="icon fontbtn"  id="dec" data-csize='-4'><i class="fas fa-minus"></i></div>
+            <!-- <div class="mt-2 col-md-1"></div>
+            <div class="icon fontbtn"  id="reset"><i class="fas fa-redo"></i></div> -->
+
+          </a></li>
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -169,49 +180,49 @@
       </div>
     </section><!-- End Sevices Section -->
 
+ <!-- ======= tic Section ======= -->
+ <section id="tic" class="about">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>TIC</h2>
+      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. </p>
+    </div>
+    <div class="row content">
+      <div class="col-lg-12 pt-4 pt-lg-0">
+        <p>
+          Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+          voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <a href="#" class="btn-learn-more">Learn More</a>
+      </div>
+    </div>
+
+  </div>
+</section><!-- End tic Section -->
+
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Contact</h2>
-          <p>You can contact us thorugh this contact form.</p>
+          <h2>Feedback</h2>
+          <p>You can give us feedback thorugh this contact form.</p>
         </div>
 
         <div class="row mt-5">
 
-          <div class="col-lg-4">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>000 Example Street, Melbourne, VIC 3000</p>
-              </div>
+          <div class="col-lg-12 mt-5 mt-lg-0">
 
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@example.com</p>
-              </div>
-
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>+61 0312 456 789</p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form method="post" role="form" class="email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
-                <div class="col-md-6 form-group mt-3 mt-md-3">
+                <div class="col-md-6 form-group">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
               </div>
@@ -267,6 +278,33 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDeX0snX4mNNjQ3Up95ITaKjOF9a4zIQjc",
+    authDomain: "ecalculator-f5f9c.firebaseapp.com",
+    projectId: "ecalculator-f5f9c",
+    storageBucket: "ecalculator-f5f9c.appspot.com",
+    messagingSenderId: "859988104696",
+    appId: "1:859988104696:web:ae349d61ecbda968cd720d",
+    measurementId: "G-QQZ41J8Z5B"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var db = firebase.firestore();
+  console.log(db);
+</script>
 </body>
 
 </html>

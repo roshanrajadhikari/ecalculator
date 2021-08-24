@@ -267,3 +267,26 @@
   });
 
 })()
+
+$(".fontbtn").click(function(){
+  change_font_size( parseInt($(this).data('csize')) );
+  console.log("test");
+});
+
+function change_font_size(csize){
+  var $cotent_html=$('section,h1,h2,h3,h4,h5,i,p,footer');
+  $cotent_html.each(function(){
+      var cur_size = parseInt($(this).css('font-size'));
+      cur_size=cur_size+csize;
+      console.log(cur_size);
+      $(this).css('font-size', cur_size.toString()+'px');
+  });
+
+}
+
+$("#reset").click(function(){
+  var $cotent_html=$('section,h1,h2,h3,h4,h5,i,p,footer');
+  $cotent_html.each(function(){
+      $(this).css('font-size','10px');
+  });
+});
