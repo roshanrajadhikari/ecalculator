@@ -290,3 +290,158 @@ $("#reset").click(function(){
       $(this).css('font-size','10px');
   });
 });
+
+
+
+//calculator logic
+var f = $('#fueltype');
+var v = $('#vehicletype');
+var e = $('#eurotype');
+var r = $('#resetbutton');
+var inp = $('#quantityval');
+var calcbtn = $("#calcbutton");
+f.prop('disabled','disabled');
+e.prop('disabled','disabled');
+
+
+v.change(function(){
+  var selected = this.value;
+  if(selected == 2){
+    console.log("trans");
+    f.val('3');
+    f.prop('disabled','disabled');
+    e.val('0');
+    e.prop('disabled','disabled');
+  }else{
+    f.removeAttr("disabled");
+    f.val('0');
+    console.log("truck");
+
+  }
+}
+);
+f.change(function(){
+  var selected = this.value;
+  console.log("f");
+  if(selected == 2){
+    e.removeAttr("disabled");
+  }else{
+    e.prop('disabled','disabled');
+  }
+}
+);
+e.change(function(){
+  console.log("e");
+}
+);
+
+r.click(function(){
+  v.val(0);
+  e.val(0);
+  f.val(0);
+  inp.val('');
+  f.prop('disabled','disabled');
+  e.prop('disabled','disabled');
+  $('#result').css('display','none');
+
+
+});
+calcbtn.click(function(){
+  calculate();
+});
+
+function calculate(){
+  var values = [];
+  gas = [34.2,[67.01,0.6,1.6]];
+  euro1 = [38.6,[69.9,0.2,0.4]];
+  euro2 = [38.6,[69.9,0.1,0.4]];
+  euro3 = [38.6,[69.9,0.2,0.4]];
+  bio = [34.6,[69.9,0.07,0.4]];
+  var em;
+  var q = inp.val();
+  
+  if(v.val() == 2){
+    em = getE(gas);
+  }else{
+    if(f.val() == 1){
+      em = getE(bio);
+    }
+    if(f.val() == 2){
+      if(e.val() == 1){
+        em = getE(euro1);
+      }
+      if(e.val() == 2){
+        em = getE(euro2);
+      }
+      if(e.val() == 3){
+        em = getE(euro3);
+      }
+    }
+  }
+  
+  if(em){
+    console.log(em);
+    //print result
+    $('#result').css('display','block');
+    $('#qinfo').text(q);
+    $('#einfo').text(em.toFixed(3));
+    generateChart(values);
+  }
+
+  
+
+  function getE(type){
+    var total = 0;
+      for(var j = 0;j<3;j++){
+        var em = q * type[0] * type[1][j] * 0.001;
+        values.push(em);
+        total += em;
+      }
+    return total;
+  }
+
+
+}
+
+function generateChart(d){
+    
+  const data = {
+    labels: ['CO2', 'CH4', 'NO2'],
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: d,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+        'rgb(75, 192, 142)',
+        'rgb(255, 205, 86)'
+        ]
+      }
+    ]
+  };
+
+  const config = {
+  type: 'pie',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Green house emmisson chart'
+      }
+    }
+  },
+};
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+}
+
+
+
