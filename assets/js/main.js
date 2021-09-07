@@ -350,6 +350,11 @@ calcbtn.click(function(){
   calculate();
 });
 
+
+$('#savereport').click(function(){
+  donwloadPDF();
+});
+
 function calculate(){
   var values = [];
   gas = [34.2,[67.01,0.6,1.6]];
@@ -388,7 +393,6 @@ function calculate(){
     generateChart(values);
   }
 
-  
 
   function getE(type){
     var total = 0;
@@ -400,9 +404,9 @@ function calculate(){
     return total;
   }
 
-
 }
 
+//chart maker
 function generateChart(d){
     
   const data = {
@@ -437,11 +441,20 @@ function generateChart(d){
   },
 };
 
-  var myChart = new Chart(
-    document.getElementById('myChart'),
+  var chart = new Chart(
+    document.getElementById('chart'),
     config
   );
 }
 
+function donwloadPDF (){
+  var canvas = document.querySelector('#chart');
+  var img = canvas.toDataURL("image/jpeg",1.0);
+  var doc = new jsPDF();
+  doc.setFontSize(20);
+  doc.text(15,15,"Your Report");  
+  doc.addImage(img,'JPEG',10,10,280,150);
+  doc.save('ecalc_report.pdf');
+}
 
 

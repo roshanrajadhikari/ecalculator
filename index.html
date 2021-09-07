@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="assets/fontawesome-free-5.15.3-web/css/all.css">
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
@@ -173,8 +172,9 @@
               <div class="container" id="result">
                 <p>Your Total Green House gas emission by burning <a id="qinfo"></a> KL of fuel is <a id="einfo"></a> t CO2-e</p>
                 <div class="container">
-                  <canvas id="myChart"></canvas>
-                </div>
+                  <canvas id="chart"></canvas>
+                </div></br>
+                <input class="btn btn-primary" type="button" value="Save Report" id="savereport">
               </div>
             </div>
 
