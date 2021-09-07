@@ -4,6 +4,9 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+// window.jsPDF = window.jspdf.jsPDF;
+
 (function() {
   "use strict";
 
@@ -449,11 +452,11 @@ function generateChart(d){
 
 function donwloadPDF (){
   var canvas = document.querySelector('#chart');
-  var img = canvas.toDataURL("image/jpeg",1.0);
-  var doc = new jsPDF();
+  var img = canvas.toDataURL("image/png",1.0);
+  var doc = new jsPDF('landscape');
   doc.setFontSize(20);
   doc.text(15,15,"Your Report");  
-  doc.addImage(img,'JPEG',10,10,280,150);
+  doc.addImage(img,'png',10,15,120,120);
   doc.save('ecalc_report.pdf');
 }
 
