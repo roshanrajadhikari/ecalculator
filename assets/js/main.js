@@ -358,13 +358,13 @@ $('#savereport').click(function(){
   donwloadPDF();
 });
 
+var values = [];
 function calculate(){
-  var values = [];
   gas = [34.2,[67.01,0.6,1.6]];
   euro1 = [38.6,[69.9,0.2,0.4]];
   euro2 = [38.6,[69.9,0.1,0.4]];
-  euro3 = [38.6,[69.9,0.2,0.4]];
-  bio = [34.6,[69.9,0.07,0.4]];
+  euro3 = [38.6,[69.9,0.07,0.4]];
+  bio = [34.6,[0,0.8,1.7]];
   var em;
   var q = inp.val();
   
@@ -451,13 +451,43 @@ function generateChart(d){
 }
 
 function donwloadPDF (){
+  var space = 15;
   var canvas = document.querySelector('#chart');
   var img = canvas.toDataURL("image/png",1.0);
   var doc = new jsPDF('landscape');
   doc.setFontSize(20);
-  doc.text(15,15,"Your Report");  
-  doc.addImage(img,'png',10,15,120,120);
+  doc.text(15,space,"Your Emission Report");  
+  doc.setFontSize(10);
+  var q = document.getElementById("qinfo").innerHTML;
+  var em = document.getElementById("einfo").innerHTML;
+  doc.text(15,space+=10,"Your Total Green House gas emission by burning " + q +" KL of fuel is "+ em +" t CO2-e")
+  doc.autoTable({
+    head: headRows(),
+    body: bodyRows(),
+    startY: space+=10,
+    theme: 'striped',
+  });
+  doc.addImage(img,'png',15,space+=40,120,120);
   doc.save('ecalc_report.pdf');
+}
+
+//generating contents of table in report
+function headRows() {
+  return [
+    {gas: 'Green House Gas', amount: 'Emisson t CO2-e'},
+  ];
+}
+
+function bodyRows() {
+  var lables = ['CO2', 'CH4', 'NO2'];
+  var body = [];
+  for (var j = 0; j < values.length; j++) {
+    body.push({
+      gas: lables[j],
+      amount: values[j],
+    });
+  }
+  return body;
 }
 
 
