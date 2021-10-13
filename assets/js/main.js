@@ -479,19 +479,25 @@ function donwloadPDF (){
 //generating contents of table in report
 function headRows() {
   return [
-    {gas: 'Green House Gas', amount: 'Emisson t CO2-e',percent : 'Percentage'},
+    {gas: 'Green House Gas', amount: 'Emisson t CO2-e',percent : 'Percentage(%)'},
   ];
 }
 
 function bodyRows() {
   var lables = ['CO2', 'CH4', 'NO2'];
+  var total = 0;
   var body = [];
+  for (var j = 0; j < values.length; j++) {
+    total += values[j];
+  }
   for (var j = 0; j < values.length; j++) {
     body.push({
       gas: lables[j],
       amount: values[j],
+      percent: (values[j]/total *100).toFixed(2),
     });
   }
+
   return body;
 }
 
