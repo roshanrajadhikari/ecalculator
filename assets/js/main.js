@@ -398,6 +398,7 @@ function calculate(){
 
 
   function getE(type){
+    values = [];
     var total = 0;
       for(var j = 0;j<3;j++){
         var em = q * type[0] * type[1][j] * 0.001;
