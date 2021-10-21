@@ -360,6 +360,7 @@ $('#savereport').click(function(){
 
 var values = [];
 function calculate(){
+  values = [];
   gas = [34.2,[67.01,0.6,1.6]];
   euro1 = [38.6,[69.9,0.2,0.4]];
   euro2 = [38.6,[69.9,0.1,0.4]];
@@ -393,12 +394,13 @@ function calculate(){
     $('#result').css('display','block');
     $('#qinfo').text(q);
     $('#einfo').text(em.toFixed(3));
+    console.log(values);
     generateChart(values);
   }
 
 
   function getE(type){
-    values = [];
+    
     var total = 0;
       for(var j = 0;j<3;j++){
         var em = q * type[0] * type[1][j] * 0.001;
